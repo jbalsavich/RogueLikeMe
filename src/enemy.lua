@@ -11,8 +11,8 @@ goLeft = true
 
 function enemy:update(dt)
     --if love.keyboard.isDown("right") then
-
-    if goLeft then
+--[[
+if goLeft then
         if enemy.x - enemy.speed <= 0 then
             goLeft = false
             enemy.x = enemy.x + enemy.speed
@@ -24,7 +24,16 @@ function enemy:update(dt)
             enemy.x = enemy.x - enemy.speed
         end
         enemy.x = enemy.x + enemy.speed
+]]
+    --if collision then enemy.speed = -enemy.speed end
+    enemy.x = enemy.x + enemy.speed
+    if enemy.x + enemy.width >= love.graphics.getWidth() then
+        enemy.speed = -enemy.speed
     end
+    if enemy.x <= 0 then
+        enemy.speed = -enemy.speed
+    end
+
     --end
     --[[if love.keyboard.isDown("left") then
         if enemy.x - enemy.speed < 0 then
