@@ -1,8 +1,8 @@
 player = {}
 player.x = 0
 player.y = 0
-player.width = 100;
-player.height = 100;
+player.width = love.graphics.getWidth()/15;
+player.height = love.graphics.getWidth()/15;
 player.speed = (player.width/love.graphics.getWidth()) * 20
 
 
