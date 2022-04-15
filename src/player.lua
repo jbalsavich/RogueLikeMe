@@ -3,6 +3,7 @@ player.x = 0
 player.y = 0
 player.width = love.graphics.getWidth()/15;
 player.height = love.graphics.getWidth()/15;
+player.dir = "down"
 player.speed = (player.width/love.graphics.getWidth()) * scale
 
 
@@ -11,24 +12,28 @@ player.health = 10
 
 function player:update(dt)
     if love.keyboard.isDown("right") then
+        player.dir = "right"
         if player.x + player.width + player.speed >= love.graphics.getWidth() then
             player.x = player.x - player.speed
         end
         player.x = player.x + player.speed
     end
     if love.keyboard.isDown("left") then
+        player.dir = "left"
         if player.x - player.speed < 0 then
             player.x = player.x + player.speed
         end
         player.x = player.x - player.speed
     end
     if love.keyboard.isDown("down") then
+        player.dir = "down"
         if player.y + player.height + player.speed >= love.graphics.getHeight() then
             player.y = player.y - player.speed
         end
         player.y = player.y + player.speed
     end
     if love.keyboard.isDown("up") then
+        player.dir = "up"
         if player.y - player.speed < 0 then
             player.y = player.y + player.speed
         end
@@ -37,6 +42,8 @@ function player:update(dt)
 end
 
 function player:draw()
+    if player.dir == "down" then
+        love.graphics.draw()
     love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 end
 
