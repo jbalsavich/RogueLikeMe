@@ -15,14 +15,14 @@ function playerVsEnemy()
         distanceVector = {x = -distanceVector.x, y = -distanceVector.y}
         -- send the player in the opposite direction
         if(distanceVector.x > 0) then
-            player.x = (player.x + player.width + player.speed)
+            player.x = (player.x + player.width + (distanceVector.x+player.width))
         else
-            player.x = (player.x - player.width - player.speed)
+            player.x = (player.x - player.width - (distanceVector.x+player.width))
         end
         if(distanceVector.y > 0) then
-            player.y = (player.y + player.height + player.speed)
+            player.y = (player.y + player.height + distanceVector.y)
         else
-            player.y = (player.y - player.height - player.speed)
+            player.y = (player.y - player.height - distanceVector.y)
         end
     end
 end
