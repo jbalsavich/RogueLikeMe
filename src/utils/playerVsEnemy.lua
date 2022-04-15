@@ -8,7 +8,11 @@ function playerVsEnemy()
             setBackgroundColor(255,0,0)
             
         end
+<<<<<<< HEAD
         
+=======
+        --enemy.speed = -enemy.speed;
+>>>>>>> 9a974ab9195013ff3ceb21daa89dea4cd7297dd8
         -- get a vector of the distance between player and enemy
         distanceVector = {x = enemy.x - player.x, y = enemy.y - player.y}
         -- reverse the vector

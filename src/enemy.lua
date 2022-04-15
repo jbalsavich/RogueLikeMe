@@ -3,20 +3,30 @@ enemy.x = love.graphics.getWidth() * .8
 enemy.y = love.graphics.getHeight() * .8
 enemy.width = love.graphics.getWidth()/15;
 enemy.height = love.graphics.getWidth()/15;
-enemy.speed = (enemy.width/love.graphics.getWidth()) * scale * .8
-
+enemy.speed = (enemy.width/love.graphics.getWidth()) * scale * 1.8
+goLeft = true
 
 
 
 
 function enemy:update(dt)
-    --[[if love.keyboard.isDown("right") then
+    --if love.keyboard.isDown("right") then
+
+    if goLeft then
+        if enemy.x - enemy.speed <= 0 then
+            goLeft = false
+            enemy.x = enemy.x + enemy.speed
+        end
+        enemy.x = enemy.x - enemy.speed
+    else
         if enemy.x + enemy.width + enemy.speed >= love.graphics.getWidth() then
+            goLeft = true
             enemy.x = enemy.x - enemy.speed
         end
         enemy.x = enemy.x + enemy.speed
+    end
     --end
-    --if love.keyboard.isDown("left") then
+    --[[if love.keyboard.isDown("left") then
         if enemy.x - enemy.speed < 0 then
             enemy.x = enemy.x + enemy.speed
         end
