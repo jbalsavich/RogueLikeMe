@@ -3,7 +3,7 @@ player.x = 0
 player.y = 0
 player.width = 100;
 player.height = 100;
-player.speed = 5
+player.speed = (player.width/love.graphics.getWidth()) * 20
 
 function player:update(dt)
     if love.keyboard.isDown("right") then
