@@ -18,14 +18,14 @@ function playerVsEnemy()
             player.x = (player.x + player.width + (distanceVector.x+player.width))
         else
             if(distanceVector.x < player.width) then
-                player.x = player.x + (distanceVector.x)
+                
             end
-            player.x = (player.x - player.width - (distanceVector.x+player.width))
+            player.x = (player.x - player.width - (distanceVector.x))
         end
         if(distanceVector.y > 0) then
-            player.y = (player.y + player.height + distanceVector.y)
+            player.y = (player.y + player.height*2 + distanceVector.y)
         else
-            player.y = (player.y - player.height - distanceVector.y)
+            player.y = (player.y - player.height*2 - distanceVector.y)
         end
         
     end
