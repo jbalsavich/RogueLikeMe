@@ -1,23 +1,28 @@
---when a player and an enemy are in the same area, stop the enemy for 1 second and move the player back to the last position slowly
-function playerVsEnemy(player, enemy)
+--if player collides with enemy, player loses health and is sent back to start
+function playerVsEnemy()
     if player.x + player.width >= enemy.x and player.x <= enemy.x + enemy.width and player.y + player.height >= enemy.y and player.y <= enemy.y + enemy.height then
-        enemy.x = enemy.x - enemy.speed
-        enemy.y = enemy.y - enemy.speed
-        player.x = player.x - player.speed
-        player.y = player.y - player.speed
-        enemy.speed = 0
-        player.speed = 0
-        enemy.health = enemy.health - 1
         player.health = player.health - 1
-        if enemy.health <= 0 then
-           -- enemy.delete()
-           -- player.levelUp()
+        love.window.setTitle("THE GAME ( " .. player.health .. " )")
+        if(player.health <= 0) then
+            --set the background color to red
+            setBackgroundColor(255,0,0)
+            
         end
-        if player.health <= 0 then
-            player.x = 0
-            player.y = 0
-            player.health = 100
-            player.speed = (player.width/love.graphics.getWidth()) * scale
+        enemy.speed = -enemy.speed;
+        -- get a vector of the distance between player and enemy
+        distanceVector = {x = enemy.x - player.x, y = enemy.y - player.y}
+        -- reverse the vector
+        distanceVector = {x = -distanceVector.x, y = -distanceVector.y}
+        -- send the player in the opposite direction
+        if(distanceVector.x > 0) then
+            player.x = (player.x + player.width + player.speed)
+        else
+            player.x = (player.x - player.width - player.speed)
+        end
+        if(distanceVector.y > 0) then
+            player.y = (player.y + player.height + player.speed)
+        else
+            player.y = (player.y - player.height - player.speed)
         end
     end
 end

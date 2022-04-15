@@ -3,4 +3,5 @@ function requireAll()
     require("src/enemy")
     require("src/update")
     require("src/draw")
+    require("src/utils/playerVsEnemy")
 end
