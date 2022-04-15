@@ -4,7 +4,7 @@ function gameStart()
     love.graphics.setDefaultFilter("nearest","nearest")
 
 
-    setWindowSize(false,1360,840)
+    setWindowSize(true,1360,840)
     setScale()
 
     require("src/startup/require")
@@ -36,3 +36,4 @@ function setScale(input)
     end
 
 end
+

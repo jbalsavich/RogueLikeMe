@@ -3,7 +3,7 @@ player.x = 0
 player.y = 0
 player.width = love.graphics.getWidth()/15;
 player.height = love.graphics.getWidth()/15;
-player.speed = (player.width/love.graphics.getWidth()) * 20
+player.speed = (player.width/love.graphics.getWidth()) * scale
 
 
 
