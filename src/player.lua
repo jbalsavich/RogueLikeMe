@@ -38,32 +38,28 @@ end
 
 
 --[[
-    if love.keyboard.isDown('left','a') then
-        if(CheckCollision(player.x, player.y, player.width, player.height, 0, 0, 0, love.graphics.getHeight())) then
-            player.x = player.x + player.speed * dt
-        end
-        player.x = player.x - player.speed * dt
-    end
-    if love.keyboard.isDown('right','d') then
-        --if collides with right wall stop moving
-        if(CheckCollision(player.x, player.y, player.width, player.height, love.graphics.getWidth()+(player.width/2), 0, 0, love.graphics.getHeight())) then
-            player.x = player.x - player.speed * dt
-        end
-        
-        player.x = player.x + player.speed * dt
-    end
-    if love.keyboard.isDown('up','w') then
-        --if collides with top wall stop moving
-        if(CheckCollision(player.x, player.y, player.width, player.height, 0, love.graphics.getHeight()-love.graphics.getHeight(), love.graphics.getWidth(), 0)) then
-            player.y = player.y + player.speed * dt
-        end
-        player.y = player.y - player.speed * dt
-    end
-    if love.keyboard.isDown('down','s') then
-        --if collides with bottom wall stop moving
-        if(CheckCollision(player.x, player.y, player.width, player.height, 0, love.graphics.getHeight(), love.graphics.getWidth(), 0)) then
-            player.y = player.y - player.speed * dt
-        end
-        player.y = player.y + player.speed * dt
-    end
+    function love.draw(dt)
+    string = "Distance: " .. distance .. "   |   " .. maxDistance .. "   |   " .. realRed
+   love.graphics.draw(player.img, player.x, player.y,nil, .1)
+   -- get distance between player and random area
+   distance = math.sqrt(math.pow(player.x - randomArea.x, 2) + math.pow(player.y - randomArea.y, 2))
+    --print(distance)
+   maxDistance = math.sqrt(math.pow(love.graphics.getWidth(), 2) + math.pow(love.graphics.getHeight(), 2))
+    distanceRatio = distance / maxDistance
+   --draw the playerCoords in the top left corner
+   --round realRed to the nearest integer
+    
+   love.graphics.print(ToInteger(backgroundcolor.r) .." ".. ToInteger(backgroundcolor.g) .." ".. ToInteger(backgroundcolor.b), 200, 10,-100,8)
+    
+    love.graphics.setBackgroundColor(ToInteger(backgroundcolor.r)/255,0,255) -- and here
+    
+end
+
+function love.update(dt)
+    backgroundcolor = {r= ToInteger(realRed), g= 0, b=255}
+    -- change the playerCoords to the player's x and y
+    --love.graphics.setBackgroundColor(255-(distance/love.graphics.getWidth()), 0, 1/(distance / maxDistance/2))
+    --check if the player is in the random area
+    realRed = math.floor(255 * distanceRatio)
+    
 ]]
