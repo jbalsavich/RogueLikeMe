@@ -35,3 +35,35 @@ end
 function player:draw()
     love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 end
+
+
+--[[
+    if love.keyboard.isDown('left','a') then
+        if(CheckCollision(player.x, player.y, player.width, player.height, 0, 0, 0, love.graphics.getHeight())) then
+            player.x = player.x + player.speed * dt
+        end
+        player.x = player.x - player.speed * dt
+    end
+    if love.keyboard.isDown('right','d') then
+        --if collides with right wall stop moving
+        if(CheckCollision(player.x, player.y, player.width, player.height, love.graphics.getWidth()+(player.width/2), 0, 0, love.graphics.getHeight())) then
+            player.x = player.x - player.speed * dt
+        end
+        
+        player.x = player.x + player.speed * dt
+    end
+    if love.keyboard.isDown('up','w') then
+        --if collides with top wall stop moving
+        if(CheckCollision(player.x, player.y, player.width, player.height, 0, love.graphics.getHeight()-love.graphics.getHeight(), love.graphics.getWidth(), 0)) then
+            player.y = player.y + player.speed * dt
+        end
+        player.y = player.y - player.speed * dt
+    end
+    if love.keyboard.isDown('down','s') then
+        --if collides with bottom wall stop moving
+        if(CheckCollision(player.x, player.y, player.width, player.height, 0, love.graphics.getHeight(), love.graphics.getWidth(), 0)) then
+            player.y = player.y - player.speed * dt
+        end
+        player.y = player.y + player.speed * dt
+    end
+]]
