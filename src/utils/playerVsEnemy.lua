@@ -14,7 +14,7 @@ function playerVsEnemy()
         -- reverse the vector
         distanceVector = {x = -distanceVector.x, y = -distanceVector.y}
         -- send the player in the opposite direction
-        if(distanceVector.x > 0) then
+        if(distanceVector.x > 0 and distanceVector.x >= player.width) then
             player.x = (player.x + player.width + (distanceVector.x+player.width))
         else
             if(distanceVector.x < player.width) then
