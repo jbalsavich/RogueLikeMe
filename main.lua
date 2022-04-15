@@ -3,6 +3,8 @@ function love.load()
 
     require("src/startup/gameStart")
     gameStart()
+    --sti  = require 'src/libraries/sti'
+    --gameMap = sti("maps/TopFloor.lua")
 
     
 end
@@ -29,7 +31,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    
+    --gameMap:draw()
 
     drawCamera()
 end
