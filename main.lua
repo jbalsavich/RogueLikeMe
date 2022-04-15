@@ -9,7 +9,9 @@ end
 
 function love.update(dt)
     updateAll(dt)
-    
+    if love.keyboard.isDown('escape') then
+        love.event.push('quit')
+    end
 end
 
 function love.draw()
