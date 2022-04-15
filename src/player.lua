@@ -13,7 +13,7 @@ function player:update(dt)
         player.x = player.x + player.speed
     end
     if love.keyboard.isDown("left") then
-        if player.x - player.width - player.speed < 0 then
+        if player.x - player.speed < 0 then
             player.x = player.x + player.speed
         end
         player.x = player.x - player.speed
@@ -25,7 +25,7 @@ function player:update(dt)
         player.y = player.y + player.speed
     end
     if love.keyboard.isDown("up") then
-        if player.y - player.height - player.speed < 0 then
+        if player.y - player.speed < 0 then
             player.y = player.y + player.speed
         end
         player.y = player.y - player.speed
