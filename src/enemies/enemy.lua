@@ -56,7 +56,8 @@ if goLeft then
 end
 
 function enemy:draw()
-    love.graphics.rectangle("fill", enemy.x, enemy.y, enemy.width, enemy.height)
+    local buns = love.graphics.newImage("sprites/enemyDown.png")
+    love.graphics.draw(buns, enemy.x, enemy.y)
 end
 
 
