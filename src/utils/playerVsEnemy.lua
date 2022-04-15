@@ -10,8 +10,8 @@ function playerVsEnemy(player, enemy)
         enemy.health = enemy.health - 1
         player.health = player.health - 1
         if enemy.health <= 0 then
-            enemy.delete()
-            player.levelUp()
+           -- enemy.delete()
+           -- player.levelUp()
         end
         if player.health <= 0 then
             player.x = 0
