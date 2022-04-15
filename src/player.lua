@@ -42,9 +42,23 @@ function player:update(dt)
 end
 
 function player:draw()
+    local plLf = love.graphics.newImage("sprites/playerLeft.png")
+    local plRt = love.graphics.newImage("sprites/playerRight.png")
+    local plUp = love.graphics.newImage("sprites/playerUp.png")
+    local plDw = love.graphics.newImage("sprites/playerDown.png")
+
     if player.dir == "down" then
-        love.graphics.draw()
-    love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+        love.graphics.draw(plDw, player.x, player.y)
+    
+    elseif player.dir == "up" then
+        love.graphics.draw(plUp, player.x, player.y)
+    
+    elseif player.dir == "right" then
+        love.graphics.draw(plRt, player.x, player.y)
+    
+    elseif player.dir == "left" then
+        love.graphics.draw(plLf, player.x, player.y)
+    end
 end
 
 
