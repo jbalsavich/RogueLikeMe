@@ -6,7 +6,7 @@ player.height = love.graphics.getWidth()/15;
 player.speed = (player.width/love.graphics.getWidth()) * scale
 
 
-
+player.health = 100
 
 
 function player:update(dt)
