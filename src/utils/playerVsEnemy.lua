@@ -8,7 +8,6 @@ function playerVsEnemy()
             setBackgroundColor(255,0,0)
             
         end
-<<<<<<< HEAD
         
         -- get a vector of the distance between player and enemy
         distanceVector = {x = enemy.x - player.x, y = enemy.y - player.y}
@@ -17,17 +16,13 @@ function playerVsEnemy()
         -- send the player in the opposite direction
         if(distanceVector.x > 0) then
             player.x = (player.x + player.width + player.speed)
-            enemy.x = (enemy.x - enemy.width - enemy.speed)
         else
             player.x = (player.x - player.width - player.speed)
-            enemy.x = (enemy.x + enemy.width + enemy.speed)
         end
         if(distanceVector.y > 0) then
             player.y = (player.y + player.height + player.speed)
-            enemy.y = (enemy.y - enemy.height - enemy.speed)
         else
             player.y = (player.y - player.height - player.speed)
-            enemy.y = (enemy.y + enemy.height + enemy.speed)
         end
     end
 end
