@@ -32,9 +32,15 @@ end
 
 function love.draw()
     --gameMap:draw()
+    drawBeforeCamera()
 
-    drawCamera()
+    cam:attach()
+        drawCamera()
+    cam:detach()
+
+    drawAfterCamera()
 end
+
 function setBackgroundColor(r,g,b)
     backgroundcolor = {r=r, g=g, b=b}
 end

@@ -6,4 +6,5 @@ function requireAll()
     require("src/utils/playerVsEnemy")
 
     require("src/levels/generateMap")
+    require("src/utils/cam")
 end

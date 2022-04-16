@@ -47,17 +47,19 @@ function player:draw()
     local plUp = love.graphics.newImage("sprites/playerUp.png")
     local plDw = love.graphics.newImage("sprites/playerDown.png")
 
-    if player.dir == "down" then
-        love.graphics.draw(plDw, player.x, player.y)
-    
-    elseif player.dir == "up" then
-        love.graphics.draw(plUp, player.x, player.y)
-    
-    elseif player.dir == "right" then
-        love.graphics.draw(plRt, player.x, player.y)
+
+    if player.dir == "right" then
+        love.graphics.draw(plRt, player.x, player.y, 0,nil,nil,plRt:getWidth()/2, plRt:getHeight()/2)
     
     elseif player.dir == "left" then
-        love.graphics.draw(plLf, player.x, player.y)
+        love.graphics.draw(plLf, player.x, player.y, 0,nil,nil,plLf:getWidth()/2, plLf:getHeight()/2)
+
+    elseif player.dir == "down" then
+        love.graphics.draw(plDw, player.x, player.y, 0,nil,nil,plDw:getWidth()/2, plDw:getHeight()/2)
+    
+    elseif player.dir == "up" then
+        love.graphics.draw(plUp, player.x, player.y, 0,nil,nil,plUp:getWidth()/2, plUp:getHeight()/2)
+        
     end
 end
 
