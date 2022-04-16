@@ -1,10 +1,14 @@
 function love.load()
     math.randomseed(os.time())
 
+    colliderToggle = true
+
     require("src/startup/gameStart")
     gameStart()
     --sti  = require 'src/libraries/sti'
     --gameMap = sti("maps/TopFloor.lua")
+
+    generateMap()
 
     
 end

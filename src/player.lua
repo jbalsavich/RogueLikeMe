@@ -1,4 +1,4 @@
-player = world:newBSGRectangleCollider(190,160,12,15,3)
+player = world:newBSGRectangleCollider(190,160,25, 20,5)
 player.x = 0
 player.y = 0
 player.width = love.graphics.getWidth()/15;
@@ -54,8 +54,8 @@ function player:draw()
     local plUp = sprites.playerUp
     local plDw = sprites.playerDown
 
-    local px = player:getX()+1
-    local py = player:getY()-5
+    local px = player:getX()
+    local py = player:getY()-20
 
 
     if player.dir == "right" then

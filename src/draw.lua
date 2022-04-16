@@ -2,9 +2,11 @@ function drawBeforeCamera()
 end
 
 function drawCamera()
-    generateMap:draw()
+    walls:draw()
+    ground:draw()
     player:draw()
     enemy:draw()
+    world:draw()
 end
 
 function drawAfterCamera()
