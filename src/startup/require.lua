@@ -4,4 +4,6 @@ function requireAll()
     require("src/update")
     require("src/draw")
     require("src/utils/playerVsEnemy")
+
+    require("src/levels/generateMap")
 end
