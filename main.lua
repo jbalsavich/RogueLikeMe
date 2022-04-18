@@ -17,7 +17,7 @@ function ToInteger(number)
 end
 
 distance = 0
-backgroundcolor = {r=0, g=0, b=0}
+backgroundcolor = {r=125, g=0, b=125}
 function love.update(dt)
     playerVsEnemy()
     maxDistance = math.sqrt(math.pow(love.graphics.getWidth(), 2) + math.pow(love.graphics.getHeight(), 2))

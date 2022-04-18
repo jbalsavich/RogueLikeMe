@@ -3,14 +3,9 @@ function gameStart()
 
     love.graphics.setDefaultFilter("nearest","nearest")
 
+
     setWindowSize(false,640,640)
     setScale()
-
-    vector = require "libraries/plugins/hump/vector"
-
-    local windfield = require "libraries/plugins/windfield"    
-    world = windfield.newWorld(0,0,false)
-    
 
     require("src/startup/require")
     requireAll()
