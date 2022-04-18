@@ -1,6 +1,8 @@
 function love.load()
     math.randomseed(os.time())
-
+    music  = love.audio.newSource("libraries/Heart_and_Soul_-_Hoagy_Carmichael_Easy_Piano_Version.mp3","static")
+    music:setVolume(0.5)
+    music:play()
     require("src/startup/gameStart")
     gameStart()
     --sti  = require 'src/libraries/sti'
