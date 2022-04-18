@@ -1,5 +1,8 @@
 function updateAll(dt)
-    cam:update(dt)
     player:update(dt)
+    world:update(dt)
     enemy:update(dt)
+
+    cam:update(dt)
+
 end
