@@ -1,10 +1,10 @@
-player = world:newBSGRectangleCollider(190,160,25, 20,5)
+player = world:newBSGRectangleCollider(spriteSize, spriteSize, spriteSize/1.5, spriteSize/2.5, spriteSize/3.75)
 player.x = 0
 player.y = 0
 player.width = love.graphics.getWidth()/15;
 player.height = love.graphics.getWidth()/15;
 player.dir = "down"
-player.speed = (player.width/love.graphics.getWidth()) *100* scale
+player.speed = (player.width/love.graphics.getWidth()) *75* spriteSize
 
 
 player.health = 6
@@ -23,14 +23,6 @@ function player:update(dt)
     local dirY = 0
 
     if player.state == 0 then
-        if love.keyboard.isDown("right") then
-            player.dir = "right"
-            dirX = 1
-        end
-        if love.keyboard.isDown("left") then
-            player.dir = "left"
-            dirX = -1
-        end
         if love.keyboard.isDown("down") then
             player.dir = "down"
             dirY = 1
@@ -39,6 +31,15 @@ function player:update(dt)
             player.dir = "up"
             dirY = -1
         end
+        if love.keyboard.isDown("right") then
+            player.dir = "right"
+            dirX = 1
+        end
+        if love.keyboard.isDown("left") then
+            player.dir = "left"
+            dirX = -1
+        end
+        
 
         local vec = vector(dirX,dirY):normalized() * player.speed
         player:setLinearVelocity(vec.x,vec.y)
@@ -59,16 +60,16 @@ function player:draw()
 
 
     if player.dir == "right" then
-        love.graphics.draw(plRt, px, py, 0,nil,nil,plRt:getWidth()/2, plRt:getHeight()/2)
+        love.graphics.draw(plRt, px, py, 0,2*spriteSize/plDw:getWidth(),2*spriteSize/plDw:getHeight(),plRt:getWidth()/2, plRt:getHeight()/1.25)
     
     elseif player.dir == "left" then
-        love.graphics.draw(plLf, px, py, 0,nil,nil,plLf:getWidth()/2, plLf:getHeight()/2)
+        love.graphics.draw(plLf, px, py, 0,2*spriteSize/plDw:getWidth(),2*spriteSize/plDw:getHeight(),plLf:getWidth()/2, plLf:getHeight()/1.25)
 
     elseif player.dir == "down" then
-        love.graphics.draw(plDw, px, py, 0,nil,nil,plDw:getWidth()/2, plDw:getHeight()/2)
+        love.graphics.draw(plDw, px, py, 0,2*spriteSize/plDw:getWidth(),2*spriteSize/plDw:getHeight(),plDw:getWidth()/2, plDw:getHeight()/1.25)
     
     elseif player.dir == "up" then
-        love.graphics.draw(plUp, px, py, 0,nil,nil,plUp:getWidth()/2, plUp:getHeight()/2)
+        love.graphics.draw(plUp, px, py, 0,2*spriteSize/plDw:getWidth(),2*spriteSize/plDw:getHeight(),plUp:getWidth()/2, plUp:getHeight()/1.25)
         
     end
 end

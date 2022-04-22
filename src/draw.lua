@@ -1,4 +1,5 @@
 function drawBeforeCamera()
+    --shader:draw()
 end
 
 function drawCamera()
@@ -7,6 +8,7 @@ function drawCamera()
     player:draw()
     enemy:draw()
     world:draw()
+    love.graphics.setShader()
 end
 
 function drawAfterCamera()

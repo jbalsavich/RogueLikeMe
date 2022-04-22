@@ -1,4 +1,4 @@
-enemy = {}
+enemy = world:newBSGRectangleCollider(spriteSize,spriteSize,spriteSize,spriteSize,spriteSize)
 enemy.x = love.graphics.getWidth() * .8
 enemy.y = love.graphics.getHeight() * .8
 enemy.width = love.graphics.getWidth()/15;
@@ -56,8 +56,11 @@ if goLeft then
 end
 
 function enemy:draw()
+    local ex = enemy:getX()
+    local ey = enemy:getY()-20
+
     local buns = love.graphics.newImage("sprites/enemyDown.png")
-    love.graphics.draw(buns, enemy.x, enemy.y)
+    love.graphics.draw(buns, ex, ey)
 end
 
 

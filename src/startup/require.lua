@@ -4,6 +4,9 @@ function requireAll()
 
     require("src/startup/resources")
 
+    require("src/levels/generateMap")
+    require("src/levels/ground")
+
     require("src/player")
     require("src/update")
     require("src/draw")
@@ -11,9 +14,8 @@ function requireAll()
     require("src/enemies/enemy")
     require("src/utils/playerVsEnemy")
 
-    require("src/levels/generateMap")
-    require("src/levels/ground")
-
+    
+    --require("src/utils/shaders")
     require("src/utils/cam")
     require("src/utils/destroyAll")
 end

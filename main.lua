@@ -8,6 +8,7 @@ function love.load()
     --sti  = require 'src/libraries/sti'
     --gameMap = sti("maps/TopFloor.lua")
 
+    --loadShader()
     generateMap()
 
     
