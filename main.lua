@@ -49,3 +49,22 @@ end
 function setBackgroundColor(r,g,b)
     backgroundcolor = {r=r, g=g, b=b}
 end
+
+function love.keypressed(key)
+    if key == 'r' then
+        rd = 1-rd
+    end
+    if key == 'g' then
+        gr = 1-gr
+    end
+    if key == 'b' then
+        bl = 1-bl
+    end
+
+    if key == 'up' then
+        lightlvl = lvl+8
+    end
+    if key == 'down' then
+        lightlvl = lvl-8
+    end
+end

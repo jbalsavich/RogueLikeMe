@@ -1,94 +1,17 @@
-local shader_code = [[
-#define NUM_LIGHTS 32
-struct Light {
-    vec2 position;
-    vec3 diffuse;
-    float power;
-};
-extern Light lights[NUM_LIGHTS];
-extern int num_lights;
-extern vec2 screen;
-const float constant = 1.0;
-const float linear = 0.09;
-const float quadratic = 0.032;
-vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords){
-    vec4 pixel = Texel(image, uvs);
-    vec2 norm_screen = screen_coords / screen;
-    vec3 diffuse = vec3(0);
-    for (int i = 0; i < num_lights; i++) {
-        Light light = lights[i];
-        vec2 norm_pos = light.position / screen;
-        
 
-        //sfhdkfsd
-        float distance = length(norm_pos - norm_screen) * screen.x / light.power;
-        float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
-        
-        diffuse += light.diffuse * attenuation;
-    }
-    diffuse = clamp(diffuse, 0.0, 1.0);
-    return pixel * vec4(diffuse, 1.0);
-}
-]]
+shade = {}
 
-local shader = nil
-local image  = nil
+lightlvl = 8
+rd = 1
+gr = 1
+bl = 1
 
-function love.load()
-    require("cam")
-    require("gameStart")
-    gameStart()
 
-    px = love.graphics.getWidth()/2
-    py = love.graphics.getHeight()/2
-    speed = 256
-    lvl = 8
-    r = 1
-    g = 1
-    b = 1
-    shader = love.graphics.newShader(shader_code)
-    image = love.graphics.newImage("dungeonCrawler.png")
-end
 
-function love.update(dt)
-    cam:update(dt)
-    if love.keyboard.isDown("s") then
-        py = py + speed * dt
-    end
-    if love.keyboard.isDown("w") then
-        py = py - speed * dt
-    end
-    if love.keyboard.isDown("d") then
-        px = px + speed * dt
-    end
-    if love.keyboard.isDown("a") then
-        px = px - speed * dt
-    end
-
-    
-end
-
-function love.keypressed(key)
-    if key == 'r' then
-        r = 1-r
-    end
-    if key == 'g' then
-        g = 1-g
-    end
-    if key == 'b' then
-        b = 1-b
-    end
-
-    if key == 'up' then
-        lvl = lvl+8
-    end
-    if key == 'down' then
-        lvl = lvl-8
-    end
-end
-
-function love.draw()
+function shade:draw()
     love.graphics.setShader(shader)
+
+    local px,py = player:getPosition()
 
     shader:send("screen", {
         love.graphics.getWidth(),
@@ -96,7 +19,7 @@ function love.draw()
     })
 
     shader:send("num_lights", 15)
-    local tileSize = 64
+    local tileSize = spriteSize
 
     do
         local name = "lights[" .. 0 .."]"
@@ -161,13 +84,7 @@ function love.draw()
     shader:send("lights[13].power", 2)
 
     shader:send("lights[14].position", {px,py})
-    shader:send("lights[14].diffuse",{r, g, b})
-    shader:send("lights[14].power", lvl)
+    shader:send("lights[14].diffuse",{rd, gr, bl})
+    shader:send("lights[14].power", lightlvl)
 
-
-
-    love.graphics.draw(image, 0, 0)
-    love.graphics.circle('fill',px,py,4)
-
-    love.graphics.setShader()
 end

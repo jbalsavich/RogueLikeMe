@@ -15,7 +15,7 @@ function requireAll()
     require("src/utils/playerVsEnemy")
 
     
-    --require("src/utils/shaders")
+    require("src/utils/shaders")
     require("src/utils/cam")
     require("src/utils/destroyAll")
 end
