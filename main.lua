@@ -61,10 +61,10 @@ function love.keypressed(key)
         bl = 1-bl
     end
 
-    if key == 'up' then
-        lightlvl = lvl+8
+    if key == 'w' then
+        lightlvl = lightlvl+8
     end
-    if key == 'down' then
-        lightlvl = lvl-8
+    if key == 's' then
+        lightlvl = lightlvl-8
     end
 end

@@ -1,4 +1,4 @@
-local shader_code = [[
+shader_code = [[
 #define NUM_LIGHTS 32
 struct Light {
     vec2 position;
@@ -45,7 +45,8 @@ function gameStart()
 
     local windfield = require "libraries/plugins/windfield"    
     world = windfield.newWorld(0,0,false)
-    shader = love.graphics.newShader(shader_code)
+    shader = {}
+    shader.lighting = love.graphics.newShader(shader_code)
 
     require("src/startup/require")
     requireAll()
