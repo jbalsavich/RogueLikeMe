@@ -20,7 +20,6 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords){
         vec2 norm_pos = light.position / screen;
         
 
-        //sfhdkfsd
         float distance = length(norm_pos - norm_screen) * screen.x / light.power;
         float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
         

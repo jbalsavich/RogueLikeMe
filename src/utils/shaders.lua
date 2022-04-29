@@ -3,7 +3,7 @@
 lightlvl = 8
 rd = 1
 gr = 1
-bl = 0.5
+bl = 1
 
 
 function shader:draw()
@@ -16,17 +16,17 @@ function shader:draw()
         love.graphics.getHeight()
     })
 
-    shader.lighting:send("num_lights", 16)
+    shader.lighting:send("num_lights", 32)
     image = love.graphics.newImage("maps/dungeonCrawler.png")
     local tileSize = spriteSize
 
     
-    for i=0, 15,1 do
+
+    for i=0, 31,1 do
         local name = "lights[" .. i .."]"
-        shader.lighting:send(name .. ".position", {2*tileSize*i,2*tileSize*i})
+        shader.lighting:send(name .. ".position", {2*tileSize*(i%5 + 3.5)-px, tileSize*(i - (i%5) +5)/2.5-py})
         shader.lighting:send(name .. ".diffuse", {1.0, 1.0, 1.0})
-        shader.lighting:send(name .. ".power", 8)
-        i = i+1
+        shader.lighting:send(name .. ".power", 4)
     end
     
     --[[
