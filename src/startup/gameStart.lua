@@ -1,5 +1,5 @@
 shader_code = [[
-#define NUM_LIGHTS 32
+#define NUM_LIGHTS 64
 struct Light {
     vec2 position;
     vec3 diffuse;
@@ -37,7 +37,7 @@ function gameStart()
 
     love.graphics.setDefaultFilter("nearest","nearest")
 
-    setWindowSize(false,640,640)
+    setWindowSize(false,770,770)
     setScale()
 
     vector = require "libraries/plugins/hump/vector"
@@ -46,6 +46,7 @@ function gameStart()
     world = windfield.newWorld(0,0,false)
     shader = {}
     shader.lighting = love.graphics.newShader(shader_code)
+    shader.placement = {}
 
     require("src/startup/require")
     requireAll()

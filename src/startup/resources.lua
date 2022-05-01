@@ -1,6 +1,9 @@
 sprites = {}
 sprites.darkTile = love.graphics.newImage("sprites/darkTile.png")
 sprites.blueTile = love.graphics.newImage("sprites/blueTile.png")
+sprites.wallLamp = love.graphics.newImage("sprites/wallLamp.png")
+sprites.cushion = love.graphics.newImage("sprites/cushion.png")
+sprites.ballOfLight = love.graphics.newImage("sprites/ballOfLight.png")
 sprites.teleporter = love.graphics.newImage("sprites/teleporter.png")
 
 sprites.playerLeft = love.graphics.newImage("sprites/playerLeft.png")

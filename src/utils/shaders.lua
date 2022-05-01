@@ -2,8 +2,52 @@
 
 lightlvl = 8
 rd = 1
-gr = 1
-bl = 1
+gr = 0.90
+bl = 0.7
+
+function createLight(xpos,ypos,r,g,b,power)
+    local l = {}
+    l.x = xpos + 6.5*spriteSize
+    l.y = ypos + 6.5*spriteSize
+    l.r = r
+    l.g = g
+    l.b = b
+    l.p = power
+    table.insert(shader.placement,l)
+
+end
+
+function initLights()
+    createLight(400,400,1,0,0,20)
+    createLight(600,400,1,.5,0,20)
+    createLight(800,400,1,1,0,20)
+    createLight(1000,400,0,1,0,20)
+    createLight(400,800,0,1,1,20)
+    createLight(600,800,0,0,1,20)
+    createLight(800,800,1,0,1,20)
+    createLight(1000,800,1,1,1,20)
+end
+
+function sendLights()
+    local i = 0
+    local px,py = player:getPosition()
+    
+    for i=0, 63,1 do
+        local name = "lights[" .. i .."]"
+        shader.lighting:send(name .. ".power", 0)
+    end
+
+    for _,l in ipairs(shader.placement) do
+        local name = "lights[" .. i .."]"
+        --fix this
+        if i < 31  then
+            shader.lighting:send(name .. ".position", {l.x-px, l.y-py})
+            shader.lighting:send(name .. ".diffuse", {l.r,l.g,l.b})
+            shader.lighting:send(name .. ".power", l.p)
+            i=i+1
+        end
+    end
+end
 
 
 function shader:draw()
@@ -17,54 +61,16 @@ function shader:draw()
     })
 
     shader.lighting:send("num_lights", 32)
-    image = love.graphics.newImage("maps/dungeonCrawler.png")
     local tileSize = spriteSize
 
-    
+    sendLights()
 
-    for i=0, 31,1 do
+    --[[for i=0, 31,1 do
         local name = "lights[" .. i .."]"
         shader.lighting:send(name .. ".position", {2*tileSize*(i%5 + 3.5)-px, tileSize*(i - (i%5) +5)/2.5-py})
         shader.lighting:send(name .. ".diffuse", {1.0, 1.0, 1.0})
         shader.lighting:send(name .. ".power", 4)
-    end
-    
-    --[[
-    shader.lighting:send("lights[1].position", {tileSize*2,tileSize*7.5})
-    shader.lighting:send("lights[1].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[1].power", 8)
-
-    shader.lighting:send("lights[2].position", {tileSize*9.5,tileSize*3.5})
-    shader.lighting:send("lights[2].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[2].power", 8)
-
-    shader.lighting:send("lights[3].position", {tileSize*11,tileSize*3.5})
-    shader.lighting:send("lights[3].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[3].power", 8)
-
-    shader.lighting:send("lights[4].position", {tileSize*9,tileSize*5.5})
-    shader.lighting:send("lights[4].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[4].power", 8)
-
-    shader.lighting:send("lights[5].position", {tileSize*11,tileSize*5.5})
-    shader.lighting:send("lights[5].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[5].power", 8)
-
-    shader.lighting:send("lights[6].position", {tileSize*9,tileSize*7.5})
-    shader.lighting:send("lights[6].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[6].power", 8)
-
-    shader.lighting:send("lights[7].position", {tileSize*2.5,tileSize*10.5})
-    shader.lighting:send("lights[7].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[7].power", 8)
-
-    shader.lighting:send("lights[8].position", {tileSize*8.5,tileSize*10.5})
-    shader.lighting:send("lights[8].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[8].power", 8)
-
-    shader.lighting:send("lights[9].position", {tileSize*11.5,tileSize*11.5})
-    shader.lighting:send("lights[9].diffuse",{1.0, 1.0, 1.0})
-    shader.lighting:send("lights[9].power", 8)]]
+    end]]
 
     shader.lighting:send("lights[14].position", {love.graphics.getWidth()/2,love.graphics.getHeight()/2})
     shader.lighting:send("lights[14].diffuse",{rd, gr, bl})

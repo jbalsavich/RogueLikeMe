@@ -4,7 +4,6 @@ end
 
 function drawCamera()
     shader:draw()
-    walls:draw()
     ground:draw()
     player:draw()
     enemy:draw()
