@@ -1,11 +1,12 @@
 function destroyAll()
     colliderTableDestroy(walls)
-    colliderTableDestroy(transitions)
+    colliderTableDestroy(ground)
 
-    removeTable(loots)
-    removeTable(effects)
-    removeTable(npcs)
-
+    for i=#enemies,1,-1 do
+        if enemies[i].physics ~= nil then
+            enemies[i].physics:destroy()
+        end
+    end
 end
 
 function colliderTableDestroy(tableList)

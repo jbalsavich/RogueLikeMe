@@ -5,7 +5,7 @@ rd = 1
 gr = 0.90
 bl = 0.7
 
-function createLight(xpos,ypos,r,g,b,power)
+function createLight(xpos,ypos,r,g,b,power,t)
     local l = {}
     l.x = xpos + 6.5*spriteSize
     l.y = ypos + 6.5*spriteSize
@@ -13,8 +13,33 @@ function createLight(xpos,ypos,r,g,b,power)
     l.g = g
     l.b = b
     l.p = power
-    table.insert(shader.placement,l)
+    l.type = t
+    if t == "projectile" then 
+        table.insert(shader.projectiles,l)
+    else
+        table.insert(shader.placement,l)
+    end
 
+end
+
+function updateLight(index,xpos,ypos,r,g,b,power,t)
+    if t == "projectile" then
+        if xpos~=nil then shader.projectiles[index].x = xpos + 6.5*spriteSize end
+        if ypos~=nil then shader.projectiles[index].y = ypos + 5.5*spriteSize end
+        if r~=nil then shader.projectiles[index].r = r end
+        if g~=nil then shader.projectiles[index].g = g end
+        if b~=nil then shader.projectiles[index].b = b end
+        if power~=nil then shader.projectiles[index].p = power end
+        if t~=nil then shader.projectiles[index].type = t end
+    else
+        if xpos~=nil then shader.placement[index].x = xpos + 6.5*spriteSize end
+        if ypos~=nil then shader.placement[index].y = ypos + 5.5*spriteSize end
+        if r~=nil then shader.placement[index].r = r end
+        if g~=nil then shader.placement[index].g = g end
+        if b~=nil then shader.placement[index].b = b end
+        if power~=nil then shader.placement[index].p = power end
+        if t~=nil then shader.placement[index].type = t end
+    end
 end
 
 function initLights()
@@ -31,16 +56,18 @@ end
 function sendLights()
     local i = 0
     local px,py = player:getPosition()
-    
+
     for i=0, 63,1 do
         local name = "lights[" .. i .."]"
         shader.lighting:send(name .. ".power", 0)
     end
 
+    
+
     for _,l in ipairs(shader.placement) do
         local name = "lights[" .. i .."]"
         --fix this
-        if i < 31  then
+        if i < 64  then
             shader.lighting:send(name .. ".position", {l.x-px, l.y-py})
             shader.lighting:send(name .. ".diffuse", {l.r,l.g,l.b})
             shader.lighting:send(name .. ".power", l.p)
@@ -49,6 +76,9 @@ function sendLights()
     end
 end
 
+function shader:update(dt)
+
+end
 
 function shader:draw()
     love.graphics.setShader(shader.lighting)
@@ -60,7 +90,7 @@ function shader:draw()
         love.graphics.getHeight()
     })
 
-    shader.lighting:send("num_lights", 32)
+    shader.lighting:send("num_lights", 64)
     local tileSize = spriteSize
 
     sendLights()

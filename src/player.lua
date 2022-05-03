@@ -74,6 +74,20 @@ function player:draw()
     end
 end
 
+function player:checkDamage()
+    if player:enter('Enemy') then
+        local e = player:getEnterCollisionData('Enemy')
+        player:hurt(0.5, e.collider:getX(), e.collider:getY())
+    end
+end
+
+function player:hurt(damage, knockback, srcX, srcY)
+    player.health = player.health - damage
+    --player.state = 10 -- damaged
+    player:setLinearVelocity((getFromToVector(srcX, srcY, player:getX(), player:getY()) * knockback):unpack())
+    player.stunTimer = 0.075
+end
+
 --[[
     function love.draw(dt)
         string = "Distance: " .. distance .. "   |   " .. maxDistance .. "   |   " .. realRed

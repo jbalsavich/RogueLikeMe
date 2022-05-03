@@ -47,6 +47,7 @@ function gameStart()
     shader = {}
     shader.lighting = love.graphics.newShader(shader_code)
     shader.placement = {}
+    shader.projectiles = {}
 
     require("src/startup/require")
     requireAll()

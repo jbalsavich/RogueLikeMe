@@ -9,8 +9,7 @@ function love.load()
     --gameMap = sti("maps/TopFloor.lua")
 
     --loadShader()
-    generateMap()
-
+    loadMap()
     
 end
 
@@ -22,13 +21,14 @@ end
 distance = 0
 backgroundcolor = {r=0, g=0, b=0}
 function love.update(dt)
-    playerVsEnemy()
+
+    --[[
     maxDistance = math.sqrt(math.pow(love.graphics.getWidth(), 2) + math.pow(love.graphics.getHeight(), 2))
     distanceRatio = distance / maxDistance
     realRed = math.floor(255 * distanceRatio)
     --backgroundcolor = {r= ToInteger(realRed), g= 0, b=255}
     distance = math.sqrt(math.pow(player.x - 0, 2) + math.pow(player.y - 0, 2))
-    love.graphics.setBackgroundColor(ToInteger(backgroundcolor.r), ToInteger(backgroundcolor.g), ToInteger(backgroundcolor.b))
+    love.graphics.setBackgroundColor(ToInteger(backgroundcolor.r), ToInteger(backgroundcolor.g), ToInteger(backgroundcolor.b))]]
     updateAll(dt)
     if love.keyboard.isDown('escape') then
         love.event.push('quit')

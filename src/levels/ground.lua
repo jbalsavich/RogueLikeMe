@@ -40,12 +40,16 @@ function spawnLantern(x,y,width,height)
     floor.y = y
     floor.width = width
     floor.height = height
-    floor.sprite = sprites.cushion
-    createLight(x,y-32,1,0.8,0,6)
+    floor.sprite = sprites.blueTile
+    floor.lantern = true
+    createLight(x,y,1,0.8,0,6)
     table.insert(ground,floor)
 end
 
+tpY = math.random(1,mapSize-1)
+tpX = math.random(1,mapSize-1)
 function ground:draw()
+    
     for _,w in ipairs(walls) do
         if w.sprite then
             love.graphics.draw(w.sprite, w:getX()-w.width/2, w:getY()-w.height/2, 0, w.width/32, w.height/32)
@@ -56,10 +60,10 @@ function ground:draw()
         if f.sprite then
             love.graphics.draw(f.sprite, f.x, f.y, 0, spriteSize/32,spriteSize/32)
         end
-        if f.sprite == sprites.cushion then
-            love.graphics.draw(sprites.ballOfLight,f.x,f.y-32,0,spriteSize/32,spriteSize/32)
+        if f.lantern then
+            love.graphics.draw(sprites.ballOfLight,f.x,f.y,0,spriteSize/32,spriteSize/32)
         end
     end
-    createLight(tpX*spriteSize,tpY*spriteSize,0,1,1,4)
+    createLight(tpX*spriteSize,tpY*spriteSize,0,1,1,1)
     love.graphics.draw(sprites.teleporter, spriteSize*tpX, spriteSize*tpY, 0, 2, 2)
 end

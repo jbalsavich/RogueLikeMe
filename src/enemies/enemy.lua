@@ -1,92 +1,68 @@
-enemy = world:newBSGRectangleCollider(spriteSize,spriteSize,spriteSize,spriteSize,spriteSize)
-enemy.x = love.graphics.getWidth() * .8
-enemy.y = love.graphics.getHeight() * .8
-enemy.width = love.graphics.getWidth()/15;
-enemy.height = love.graphics.getWidth()/15;
-enemy.speed = (enemy.width/love.graphics.getWidth()) * scale * 1.8
-goLeft = true
+enemies = {}
 
+function spawnEnemy(x,y,type,args)
+    
+    local enemy = {}
 
+    enemy.type = type
+    enemy.dead = false
+    enemy.stamp = "enemy"
+    enemy.health = 6
+    enemy.flashTimer = 0
 
-
-function enemy:update(dt)
-    --if love.keyboard.isDown("right") then
---[[
-if goLeft then
-        if enemy.x - enemy.speed <= 0 then
-            goLeft = false
-            enemy.x = enemy.x + enemy.speed
-        end
-        enemy.x = enemy.x - enemy.speed
-    else
-        if enemy.x + enemy.width + enemy.speed >= love.graphics.getWidth() then
-            goLeft = true
-            enemy.x = enemy.x - enemy.speed
-        end
-        enemy.x = enemy.x + enemy.speed
-]]
-    --if collision then enemy.speed = -enemy.speed end
-    enemy.x = enemy.x + enemy.speed
-    if enemy.x + enemy.width >= love.graphics.getWidth() then
-        enemy.speed = -enemy.speed
-    end
-    if enemy.x <= 0 then
-        enemy.speed = -enemy.speed
+    local init
+    if type == "bunny" then
+        init = require("src/enemies/bunny")
+        
     end
 
-    --end
-    --[[if love.keyboard.isDown("left") then
-        if enemy.x - enemy.speed < 0 then
-            enemy.x = enemy.x + enemy.speed
+    enemy = init(enemy,x,y,args)
+
+    function enemy:genericUpdate(dt)
+        if self.flashTimer > 0 then
+            self.flashTimer = self.flashTimer - dt
+            if self.flashTimer < 0 then
+                self.flashTimer = 0
+            end
         end
-        enemy.x = enemy.x - enemy.speed
-    --end
-    --if love.keyboard.isDown("down") then
-        if enemy.y + enemy.height + enemy.speed >= love.graphics.getHeight() then
-            enemy.y = enemy.y - enemy.speed
-        end
-        enemy.y = enemy.y + enemy.speed
-    --end
-    --if love.keyboard.isDown("up") then
-        if enemy.y - enemy.speed < 0 then
-            enemy.y = enemy.y + enemy.speed
-        end
-        enemy.y = enemy.y - enemy.speed
-    --end]]
+    end
+
+    table.insert(enemies,enemy)
 end
 
-function enemy:draw()
-    local ex = enemy:getX()
-    local ey = enemy:getY()-20
+function enemies:update(dt)
+    --update all enemies
+    for i,e in ipairs(self) do
+        e:update(dt)
+        e:genericUpdate(dt)
+    end
+    --remove dead enemies
+    for i=#enemies,1,-1 do 
+        if enemies[i].dead then
+            if enemies[i].physics ~= nil then
+                enemies[i].physics:destroy()
+            end
+            table.remove(enemies,i)
+        end
+    end
 
-    local buns = love.graphics.newImage("sprites/enemyDown.png")
-    love.graphics.draw(buns, ex, ey)
 end
 
-
---[[
-    function love.draw(dt)
-        string = "Distance: " .. distance .. "   |   " .. maxDistance .. "   |   " .. realRed
-        love.graphics.draw(enemy.img, enemy.x, enemy.y,nil, .1)
-        -- get distance between enemy and random area
-        distance = math.sqrt(math.pow(enemy.x - randomArea.x, 2) + math.pow(enemy.y - randomArea.y, 2))
-        --print(distance)
-        maxDistance = math.sqrt(math.pow(love.graphics.getWidth(), 2) + math.pow(love.graphics.getHeight(), 2))
-        distanceRatio = distance / maxDistance
-        --draw the enemyCoords in the top left corner
-        --round realRed to the nearest integer
-    
-        love.graphics.print(ToInteger(backgroundcolor.r) .." ".. ToInteger(backgroundcolor.g) .." ".. ToInteger(backgroundcolor.b), 200, 10,-100,8)
-    
-        love.graphics.setBackgroundColor(ToInteger(backgroundcolor.r)/255,0,255) -- and here
-    
+function enemies:draw()
+    for i,e in ipairs(self) do
+        e:draw()
+    end
 end
 
-function love.update(dt)
-    backgroundcolor = {r= ToInteger(realRed), g= 0, b=255}
-    -- change the enemyCoords to the enemy's x and y
-    --love.graphics.setBackgroundColor(255-(distance/love.graphics.getWidth()), 0, 1/(distance / maxDistance/2))
-    --check if the enemy is in the random area
-    realRed = math.floor(255 * distanceRatio)
-
-]]
+function enemies:destroyDead()
+    local i = #enemies
+    while i>0 do
+        if enemies[i].dead then 
+            if enemies[i].physics then
+                enemies[i].physics:destroy()
+            end
+            table.remove(enemies,i)
+        end
+        i=i-1
+    end
+end
