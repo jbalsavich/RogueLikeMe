@@ -7,8 +7,8 @@ bl = 0.7
 
 function createLight(xpos,ypos,r,g,b,power,t)
     local l = {}
-    l.x = xpos + 6.5*spriteSize
-    l.y = ypos + 6.5*spriteSize
+    l.x = xpos + love.graphics.getWidth()/2 + spriteSize/2
+    l.y = ypos + love.graphics.getHeight()/2 + spriteSize/2
     l.r = r
     l.g = g
     l.b = b
@@ -23,17 +23,17 @@ function createLight(xpos,ypos,r,g,b,power,t)
 end
 
 function updateLight(index,xpos,ypos,r,g,b,power,t)
-    if t == "projectile" then
-        if xpos~=nil then shader.projectiles[index].x = xpos + 6.5*spriteSize end
-        if ypos~=nil then shader.projectiles[index].y = ypos + 5.5*spriteSize end
+    if t == "projectile" and index~=nil then
+        if xpos~=nil then shader.projectiles[index].x = xpos + love.graphics.getWidth()/2 + spriteSize/2 end
+        if ypos~=nil then shader.projectiles[index].y = ypos + love.graphics.getHeight()/2 + spriteSize/2 end
         if r~=nil then shader.projectiles[index].r = r end
         if g~=nil then shader.projectiles[index].g = g end
         if b~=nil then shader.projectiles[index].b = b end
         if power~=nil then shader.projectiles[index].p = power end
         if t~=nil then shader.projectiles[index].type = t end
-    else
+    elseif index~=nil then
         if xpos~=nil then shader.placement[index].x = xpos + 6.5*spriteSize end
-        if ypos~=nil then shader.placement[index].y = ypos + 5.5*spriteSize end
+        if ypos~=nil then shader.placement[index].y = ypos + 6.5*spriteSize end
         if r~=nil then shader.placement[index].r = r end
         if g~=nil then shader.placement[index].g = g end
         if b~=nil then shader.placement[index].b = b end
@@ -63,10 +63,18 @@ function sendLights()
     end
 
     
-
-    for _,l in ipairs(shader.placement) do
+    for _,l in ipairs(shader.projectiles) do
         local name = "lights[" .. i .."]"
-        --fix this
+        if i < 64  then
+            shader.lighting:send(name .. ".position", {l.x-px, l.y-py})
+            shader.lighting:send(name .. ".diffuse", {l.r,l.g,l.b})
+            shader.lighting:send(name .. ".power", l.p)
+            i=i+1
+        end
+    end
+    i=#shader.projectiles+1
+    for i,l in ipairs(shader.placement) do
+        local name = "lights[" .. i .."]"
         if i < 64  then
             shader.lighting:send(name .. ".position", {l.x-px, l.y-py})
             shader.lighting:send(name .. ".diffuse", {l.r,l.g,l.b})

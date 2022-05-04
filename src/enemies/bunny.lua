@@ -14,7 +14,7 @@ local function bunnyInit(enemy,x,y,args)
     enemy.magnitude = 800
     enemy.dir = vector(0,1)
     enemy.viewDistance = spriteSize*7
-    enemy.closeness = spriteSize*4
+    enemy.closeness = spriteSize*5
 
     enemy.stunTimer = 0
     enemy.dizzyTimer = 0
@@ -62,10 +62,11 @@ local function bunnyInit(enemy,x,y,args)
                     self.physics:applyForce(self.dir:unpack())
                 end
             end
-
             
+            if distanceBetween(px,py,ex,ey) < self.viewDistance then
+                self:usePulse()
+            end
 
-            self:usePulse()
 
             if self.health <= 0 then
                 self.dead = true
@@ -114,7 +115,7 @@ local function bunnyInit(enemy,x,y,args)
     function enemy:usePulse()
         local ex,ey = self.physics:getPosition()
         if self.coolDown == 0 then
-            self.coolDown = 1.5
+            self.coolDown = 2
             spawnPulse(ex,ey)
         end
 
